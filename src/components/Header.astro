@@ -46,38 +46,49 @@ import HeaderLink from './HeaderLink.astro';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
-
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
+		background: var(--bg);
+		border-bottom: 1px solid var(--border);
 	}
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		max-width: 680px;
+		margin: 0 auto;
 	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
+	h2 {
+		margin: 0;
+		font-size: 0.95rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+	h2 a {
+		color: rgb(var(--black));
 		text-decoration: none;
 	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
+	.internal-links {
+		display: flex;
+		gap: 0.25em;
 	}
 	.social-links,
 	.social-links a {
 		display: flex;
+		align-items: center;
+	}
+	.social-links a {
+		color: rgb(var(--gray));
+	}
+	.social-links a:hover {
+		color: rgb(var(--black));
+	}
+	.social-links svg {
+		width: 1.25rem;
+		height: 1.25rem;
 	}
 	@media (max-width: 720px) {
+		nav {
+			max-width: 100%;
+		}
 		.social-links {
 			display: none;
 		}

@@ -10,26 +10,22 @@ export default defineConfig({
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
-			provider: fontProviders.local(),
-			name: 'Atkinson',
-			cssVariable: '--font-atkinson',
+			provider: fontProviders.google(),
+			name: 'IBM Plex Sans',
+			cssVariable: '--font-plex-sans',
+			weights: [400, 500, 600, 700],
+			styles: ['normal'],
+			subsets: ['latin'],
 			fallbacks: ['sans-serif'],
-			options: {
-				variants: [
-					{
-						src: ['./src/assets/fonts/atkinson-regular.woff'],
-						weight: 400,
-						style: 'normal',
-						display: 'swap',
-					},
-					{
-						src: ['./src/assets/fonts/atkinson-bold.woff'],
-						weight: 700,
-						style: 'normal',
-						display: 'swap',
-					},
-				],
-			},
+		},
+		{
+			provider: fontProviders.google(),
+			name: 'IBM Plex Mono',
+			cssVariable: '--font-plex-mono',
+			weights: [400, 500],
+			styles: ['normal'],
+			subsets: ['latin'],
+			fallbacks: ['monospace'],
 		},
 	],
 });
