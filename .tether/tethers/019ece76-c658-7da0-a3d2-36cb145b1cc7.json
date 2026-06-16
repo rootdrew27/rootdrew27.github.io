@@ -1,0 +1,15 @@
+{
+  "a": {
+    "fingerprint": "1f06368cb7b7ae671189da627d53a8ceeb2d2d44",
+    "path": "src/content.config.ts"
+  },
+  "b": {
+    "fingerprint": "2c79f3bbfe4cba9b5443f8d3c3dcfc416635500f",
+    "path": "src/layouts/BlogPost.astro"
+  },
+  "created_at": "2026-06-16T03:25:51Z",
+  "description": "BlogPost.astro is the single-post layout and primary render surface for blog frontmatter: it destructures title, description, pubDate, updatedDate, and heroImage from the schema-typed props and renders them (title/heroImage/dates in the article, title and description into BaseHead meta). The field set is defined by the Zod schema in content.config.ts; renaming or removing a rendered field, or adding a display-worthy field, requires a matching change here. astro build does not type-check .astro templates, so drift is silent.",
+  "id": "019ece76-c658-7da0-a3d2-36cb145b1cc7",
+  "refreshed_at": "2026-06-16T03:25:51Z",
+  "schema_version": 1
+}

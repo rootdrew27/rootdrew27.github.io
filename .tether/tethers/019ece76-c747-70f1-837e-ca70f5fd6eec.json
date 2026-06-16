@@ -1,0 +1,15 @@
+{
+  "a": {
+    "fingerprint": "f4e418eb8c6cac48f91b1ae4fe28e0b06dbc0580",
+    "path": "README.md"
+  },
+  "b": {
+    "fingerprint": "9fcf1ffbfb29e9941bb50782b950d0d18374302a",
+    "path": "package.json"
+  },
+  "created_at": "2026-06-16T03:25:51Z",
+  "description": "README.md Develop section documents the npm scripts (npm run dev / build / preview) defined in the scripts block of package.json. Renaming, removing, or adding a developer-facing script requires updating the README command list to match.",
+  "id": "019ece76-c747-70f1-837e-ca70f5fd6eec",
+  "refreshed_at": "2026-06-16T03:25:51Z",
+  "schema_version": 1
+}

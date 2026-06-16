@@ -1,0 +1,15 @@
+{
+  "a": {
+    "fingerprint": "8974c6550805a9f3372a9cc1a22991d567bc1580",
+    "path": "astro.config.mjs"
+  },
+  "b": {
+    "fingerprint": "12fe4fa1571295bd74eb05aa7f4b66a1ad51a182",
+    "path": "src/components/BaseHead.astro"
+  },
+  "created_at": "2026-06-16T03:25:51Z",
+  "description": "astro.config.mjs configures a local Atkinson font under fonts with cssVariable --font-atkinson; BaseHead.astro injects it via <Font cssVariable=\"--font-atkinson\" preload />. The cssVariable string and the existence of that configured font must agree across both files (a string literal, not type-checked), so renaming or removing the configured font/cssVariable silently breaks font loading site-wide and requires updating the <Font> usage here.",
+  "id": "019ece76-c7f0-7980-990b-f762eb4a8da2",
+  "refreshed_at": "2026-06-16T03:25:51Z",
+  "schema_version": 1
+}

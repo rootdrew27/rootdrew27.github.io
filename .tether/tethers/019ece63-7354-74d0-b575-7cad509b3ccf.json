@@ -8,7 +8,7 @@
     "path": ".github/workflows/deploy.yml"
   },
   "created_at": "2026-06-16T03:04:44Z",
-  "description": "SPEC's Deployment section describes building with withastro/action and publishing via actions/deploy-pages on push to main. deploy.yml implements it. Changing the deploy branch, build tool, or publish mechanism requires updating both.",
+  "description": "SPEC's Deployment section describes building with withastro/action and publishing via actions/deploy-pages on push to master. deploy.yml implements it. Changing the deploy branch, build tool, or publish mechanism requires updating both.",
   "id": "019ece63-7354-74d0-b575-7cad509b3ccf",
   "refreshed_at": "2026-06-16T03:17:26Z",
   "schema_version": 1

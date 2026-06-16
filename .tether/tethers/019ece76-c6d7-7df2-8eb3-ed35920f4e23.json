@@ -1,0 +1,15 @@
+{
+  "a": {
+    "fingerprint": "f4e418eb8c6cac48f91b1ae4fe28e0b06dbc0580",
+    "path": "README.md"
+  },
+  "b": {
+    "fingerprint": "56d9c31ca981bb8e27f26e14264494b8a85fdda4",
+    "path": "SPEC.md"
+  },
+  "created_at": "2026-06-16T03:25:51Z",
+  "description": "README.md is the public-facing summary of the architecture that SPEC.md specifies in full; both restate the same facts: GitHub Pages hosting with the repo named rootdrew27.github.io, deploy on push to master via .github/workflows/deploy.yml, Pages Source set to GitHub Actions, and the blog frontmatter fields. Changing any of these in SPEC.md requires updating README.md so the two docs do not contradict each other.",
+  "id": "019ece76-c6d7-7df2-8eb3-ed35920f4e23",
+  "refreshed_at": "2026-06-16T03:25:51Z",
+  "schema_version": 1
+}

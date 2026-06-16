@@ -1,0 +1,15 @@
+{
+  "a": {
+    "fingerprint": "8974c6550805a9f3372a9cc1a22991d567bc1580",
+    "path": "astro.config.mjs"
+  },
+  "b": {
+    "fingerprint": "8d0e05ff446e2eb4bd93f54661e046226f156427",
+    "path": "src/styles/global.css"
+  },
+  "created_at": "2026-06-16T03:25:51Z",
+  "description": "global.css sets the site font via body { font-family: var(--font-atkinson) }, consuming the CSS variable emitted by the Atkinson font configured in astro.config.mjs (cssVariable --font-atkinson). Renaming the cssVariable in the font config silently drops the font and falls back to sans-serif; the var(--font-atkinson) reference here must stay in sync.",
+  "id": "019ece76-c86d-72f1-a57d-1212e986eabe",
+  "refreshed_at": "2026-06-16T03:25:51Z",
+  "schema_version": 1
+}
