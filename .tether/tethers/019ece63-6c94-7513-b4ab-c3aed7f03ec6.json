@@ -1,0 +1,15 @@
+{
+  "a": {
+    "fingerprint": "56d9c31ca981bb8e27f26e14264494b8a85fdda4",
+    "path": "SPEC.md"
+  },
+  "b": {
+    "fingerprint": "8974c6550805a9f3372a9cc1a22991d567bc1580",
+    "path": "astro.config.mjs"
+  },
+  "created_at": "2026-06-16T03:04:42Z",
+  "description": "SPEC's Tech Stack/Hosting sections describe a static Astro root-user-site on GitHub Pages; astro.config.mjs implements that via 'site' (https://<username>.github.io) and base '/'. Switching hosting model (custom domain, or a project site that needs a non-root 'base') requires updating both.",
+  "id": "019ece63-6c94-7513-b4ab-c3aed7f03ec6",
+  "refreshed_at": "2026-06-16T03:17:26Z",
+  "schema_version": 1
+}
