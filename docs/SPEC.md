@@ -4,8 +4,7 @@
 
 - **Astro** (static site generator) — the blog starter template.
 - Markdown / MDX for content, with typed content collections.
-- Node toolchain for building; Python (`uv`) is retained only for the
-  `tether` dev tool.
+- Node toolchain for building.
 
 ## Hosting
 

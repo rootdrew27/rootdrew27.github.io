@@ -3,7 +3,7 @@
 A static personal site built with [Astro](https://astro.build), documenting
 completed projects and technical challenges. Hosted on GitHub Pages.
 
-See [SPEC.md](./SPEC.md) for architecture and [IDEA.md](./IDEA.md) for intent.
+See [docs/SPEC.md](./docs/SPEC.md) for architecture.
 
 ## Develop
 
@@ -25,8 +25,3 @@ against the schema in `src/content.config.ts` (`title`, `description`,
 Pushing to `master` triggers `.github/workflows/deploy.yml`, which builds the
 site and publishes it to GitHub Pages. Set the repository's Pages **Source** to
 **GitHub Actions** once, and ensure the repo is named `rootdrew27.github.io`.
-
-## Tooling note
-
-`pyproject.toml` / `uv.lock` exist only to provide the `tether` dev tool via
-`uv run tether`; they are not part of the site build.
