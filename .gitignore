@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # OS
 .DS_Store
+
+# WIP sample blog posts - kept locally as reference, not deployed
+src/content/blog/*.ignore

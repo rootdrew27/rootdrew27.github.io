@@ -1,0 +1,336 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const [resumeEntry] = await getCollection('resume');
+if (!resumeEntry) {
+	throw new Error('No resume entry found in src/content/resume/.');
+}
+const { pdfPath, profile, experience, projects, leadership, skills, education, honors } =
+	resumeEntry.data;
+
+const title = `Resume · ${SITE_TITLE}`;
+const description = `Extended resume for ${profile.name} — ${profile.title}.`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="resume-head">
+				<div class="identity">
+					<h1>{profile.name}</h1>
+					<p class="title">{profile.title}</p>
+					<p class="meta">
+						{
+							profile.location && (
+								<>
+									<span>{profile.location}</span>
+									<span aria-hidden="true">·</span>
+								</>
+							)
+						}
+						<a href={`mailto:${profile.email}`}>{profile.email}</a>
+						{
+							profile.links.map((link) => (
+								<>
+									<span aria-hidden="true">·</span>
+									<a href={link.href} target="_blank" rel="noopener noreferrer">
+										{link.label}
+									</a>
+								</>
+							))
+						}
+					</p>
+				</div>
+				<a class="download" href={pdfPath} download>
+					Download 1-page PDF
+				</a>
+			</header>
+
+			{profile.summary && <p class="summary">{profile.summary}</p>}
+
+			<section class="resume-section">
+				<h2>Experience</h2>
+				{
+					experience.map((job) => (
+						<article class="entry">
+							<div class="entry-head">
+								<h3>
+									{job.role} <span class="at">·</span> {job.company}
+								</h3>
+								<span class="period">
+									{job.start} – {job.end}
+								</span>
+							</div>
+							{job.location && <p class="entry-meta">{job.location}</p>}
+							{job.summary && <p class="entry-summary">{job.summary}</p>}
+							{job.highlights.length > 0 && (
+								<ul>
+									{job.highlights.map((h) => (
+										<li>{h}</li>
+									))}
+								</ul>
+							)}
+						</article>
+					))
+				}
+			</section>
+
+			<section class="resume-section">
+				<h2>Projects</h2>
+				{
+					projects.map((project) => (
+						<article class="entry">
+							<div class="entry-head">
+								<h3>
+									{project.href ? (
+										<a href={project.href} target="_blank" rel="noopener noreferrer">
+											{project.name}
+										</a>
+									) : (
+										project.name
+									)}
+								</h3>
+							</div>
+							<p class="entry-summary">{project.description}</p>
+							{project.highlights && project.highlights.length > 0 && (
+								<ul>
+									{project.highlights.map((h) => (
+										<li>{h}</li>
+									))}
+								</ul>
+							)}
+							{project.tech && project.tech.length > 0 && (
+								<p class="tech">{project.tech.join(' · ')}</p>
+							)}
+						</article>
+					))
+				}
+			</section>
+
+			<section class="resume-section">
+				<h2>Leadership &amp; Community</h2>
+				{
+					leadership.map((item) => (
+						<article class="entry">
+							<div class="entry-head">
+								<h3>{item.role}</h3>
+							</div>
+							<p class="entry-summary">{item.description}</p>
+						</article>
+					))
+				}
+			</section>
+
+			<section class="resume-section">
+				<h2>Skills</h2>
+				<dl class="skills">
+					{
+						skills.map((group) => (
+							<div class="skill-group">
+								<dt>{group.category}</dt>
+								<dd>{group.items.join(' · ')}</dd>
+							</div>
+						))
+					}
+				</dl>
+			</section>
+
+			<section class="resume-section">
+				<h2>Education</h2>
+				{
+					education.map((edu) => (
+						<article class="entry">
+							<div class="entry-head">
+								<h3>{edu.institution}</h3>
+								<span class="period">
+									{edu.start ? `${edu.start} – ${edu.end}` : edu.end}
+								</span>
+							</div>
+							<p class="entry-meta">{edu.credential}</p>
+							{edu.details && edu.details.length > 0 && (
+								<ul>
+									{edu.details.map((d) => (
+										<li>{d}</li>
+									))}
+								</ul>
+							)}
+						</article>
+					))
+				}
+			</section>
+
+			<section class="resume-section">
+				<h2>Honors &amp; Awards</h2>
+				{
+					honors.map((honor) => (
+						<article class="entry">
+							<div class="entry-head">
+								<h3>{honor.title}</h3>
+								<span class="period">{honor.date}</span>
+							</div>
+							{honor.issuer && <p class="entry-meta">{honor.issuer}</p>}
+						</article>
+					))
+				}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.resume-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1.5em;
+		flex-wrap: wrap;
+		margin-bottom: 1.5em;
+	}
+	.identity h1 {
+		margin-bottom: 0.15rem;
+	}
+	.title {
+		margin: 0 0 0.5rem 0;
+		color: rgb(var(--gray-dark));
+		font-size: 1.05rem;
+	}
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+		align-items: center;
+		margin: 0;
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+	}
+	.meta a {
+		text-decoration: none;
+	}
+	.meta a:hover {
+		text-decoration: underline;
+	}
+	.download {
+		flex: 0 0 auto;
+		display: inline-block;
+		padding: 0.5em 1em;
+		border: 1px solid var(--accent);
+		border-radius: 6px;
+		color: var(--accent);
+		font-size: 0.85rem;
+		font-weight: 500;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.download:hover {
+		background: var(--accent);
+		color: var(--bg);
+	}
+	.summary {
+		color: rgb(var(--gray-dark));
+		margin-bottom: 2.5em;
+	}
+	.resume-section {
+		margin-bottom: 2.5em;
+	}
+	.resume-section > h2 {
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: rgb(var(--gray));
+		padding-bottom: 0.4em;
+		border-bottom: 1px solid var(--border);
+		margin-bottom: 1.25em;
+	}
+	.entry {
+		margin-bottom: 1.75em;
+	}
+	.entry:last-child {
+		margin-bottom: 0;
+	}
+	.entry-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+	.entry-head h3 {
+		margin: 0;
+		font-size: 1.05rem;
+	}
+	.entry-head h3 a {
+		text-decoration: none;
+	}
+	.entry-head h3 a:hover {
+		text-decoration: underline;
+	}
+	.at {
+		color: rgb(var(--gray));
+		font-weight: 400;
+	}
+	.period {
+		flex: 0 0 auto;
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: rgb(var(--gray));
+	}
+	.entry-meta {
+		margin: 0.1rem 0 0.5rem 0;
+		font-size: 0.9rem;
+		color: rgb(var(--gray));
+	}
+	.entry-summary {
+		margin: 0.25rem 0 0.5rem 0;
+	}
+	.entry ul {
+		margin: 0.5rem 0 0 0;
+		padding-left: 1.1em;
+	}
+	.entry li {
+		margin-bottom: 0.3rem;
+	}
+	.tech {
+		margin: 0.6rem 0 0 0;
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		color: rgb(var(--gray));
+	}
+	.skills {
+		margin: 0;
+	}
+	.skill-group {
+		display: flex;
+		gap: 1em;
+		padding: 0.4em 0;
+	}
+	.skill-group dt {
+		flex: 0 0 9em;
+		font-weight: 600;
+		color: rgb(var(--black));
+		font-size: 0.9rem;
+	}
+	.skill-group dd {
+		margin: 0;
+		color: rgb(var(--gray-dark));
+		font-size: 0.9rem;
+	}
+	@media (max-width: 720px) {
+		.skill-group {
+			flex-direction: column;
+			gap: 0.15em;
+		}
+		.skill-group dt {
+			flex-basis: auto;
+		}
+	}
+</style>

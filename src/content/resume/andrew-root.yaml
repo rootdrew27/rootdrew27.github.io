@@ -1,0 +1,135 @@
+# Structured content for the extended resume page (src/pages/resume.astro).
+# Validated against the `resume` collection schema in src/content.config.ts.
+# Content extracted from the one-page PDF resume kept in public/.
+
+pdfPath: /andrew-root-resume.pdf
+
+profile:
+  name: Andrew Root
+  title: Founding Engineer
+  # location: omitted — the PDF lists no personal location.
+  email: root.drew27@gmail.com
+  # summary: omitted — the PDF has no summary/objective statement.
+  links:
+    - label: GitHub
+      href: https://github.com/rootdrew27
+    - label: LinkedIn
+      href: https://www.linkedin.com/in/andrew-root27
+
+experience:
+  - role: Founding Engineer
+    company: Daentra
+    location: San Francisco, CA
+    start: Aug 2025
+    end: Present
+    highlights:
+      - >-
+        Took an end-to-end vision/audio system from 0 to 1. This system includes
+        sensors, edge devices, and cloud infrastructure. It's deployed in multiple
+        dental operatory rooms across 2 offices.
+      - >-
+        Researching and prototyping depth and pose estimation methods for key object
+        tracking in video: evaluating modern models and implementing custom solutions.
+      - >-
+        Developed a novel solution for synchronizing a machine vision camera with a
+        high-intensity, flickering light of varying frequency and color.
+  - role: Research Lab Assistant
+    company: Oakland University
+    location: Oakland County, MI
+    start: May 2024
+    end: May 2025
+    highlights:
+      - >-
+        Developed a real-time machine learning pipeline for foreign-object detection
+        in video data for an automated security vehicle system (with Dataspeed Inc.).
+      - >-
+        Self-learned deep learning, PyTorch, and computer vision algorithms/techniques.
+      - >-
+        Collected data for model training and collaborated with Masters/PhD students.
+  - role: Undergraduate Researcher
+    company: University of Wisconsin – Eau Claire
+    location: Eau Claire, WI
+    start: Sep 2023
+    end: Dec 2024
+    highlights:
+      - >-
+        Conducted cyberbullying detection research by investigating sources of bias in
+        ML datasets, using cross-dataset machine learning evaluation on the university
+        HPC cluster, and mentored younger students.
+      - >-
+        Used UWEC's High Performance Computing clusters to run long running
+        training/evaluation tasks with XGBoost and Decision Trees.
+  - role: Software Engineer Intern
+    company: Midwest Manufacturing (Menards Inc.)
+    location: Eau Claire, WI
+    start: May 2023
+    end: May 2024
+    highlights:
+      - >-
+        Developed and deployed a web application simplifying advanced database
+        operations for technical and non-technical teams.
+      - >-
+        Refactored 3 manufacturing services integrating PLC systems and messaging
+        brokers, and automated documentation updates via web scraping and syntax parsers.
+      - >-
+        Designed and (partially) developed an auto-documentation service to create
+        Confluence documentation pages from code repositories.
+
+projects:
+  - name: Voice-Assistant Task Manager
+    description: >-
+      A full-stack, real-time voice-assistant task manager that lets users create,
+      edit, and manage tasks entirely through natural language without needing
+      traditional UI controls. The system streams audio to a Python agent that
+      interprets instructions via speech-to-text and a LLM, executes database
+      operations, and synchronizes updates to the frontend in real time.
+    tech:
+      - Python
+      - LLMs
+      - LiveKit
+      - Next.js
+
+leadership:
+  - role: President — Students' Association for Computing Machinery (SACM)
+    description: >-
+      Designed and led interactive, educational events for the university chapter of
+      SACM, on topics including Git/GitHub, Python, and neural networks. Led meetings
+      and delegated assignments to board members.
+  - role: Instructor — Python & Machine Learning Workshop
+    description: >-
+      Designed and ran a workshop for over 20 UWEC students covering Python, statistics,
+      data analytics, and machine learning.
+
+skills:
+  - category: Langs & Libraries
+    items: [Python, TypeScript, PyTorch, OpenCV, Open3D, AWS CDK]
+  - category: Hardware
+    items:
+      - Raspberry Pi Pico 2W
+      - Orange Pi 5B
+      - Machine Vision Cameras (e.g. See3CAM 24CUG)
+  - category: Other
+    items: [AWS (e.g. SageMaker), Git/GitHub, Linux, CAD]
+
+education:
+  - institution: University of Wisconsin – Eau Claire
+    credential: B.S. Computer Science & Applied Mathematics (Double Major)
+    start: Sep 2022
+    end: Dec 2024
+    details:
+      - "GPA: 3.98 / 4.0"
+      - Graduated with Honors in Computer Science
+  - institution: University of Minnesota – Twin Cities
+    credential: B.S. Computer Science
+    start: Sep 2018
+    end: Dec 2019
+    details:
+      - Transferred
+
+honors:
+  - title: Graduated with Honors in Computer Science
+    issuer: UW – Eau Claire
+    date: Dec 2024
+  - title: Fred F. and Lorain E. Winrich Scholarship
+    issuer: UW – Eau Claire
+    date: Sep 2023 – Dec 2024

@@ -16,6 +16,12 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			.empty {
+				color: rgb(var(--gray-dark));
+			}
+			.empty h1 {
+				margin-bottom: 0.5rem;
+			}
 			ul {
 				list-style: none;
 				margin: 0;
@@ -63,20 +69,30 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<span class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</span>
-									<span class="title">{post.data.title}</span>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				{
+					posts.length === 0 ? (
+						<div class="empty">
+							<h1>Nothing here yet</h1>
+							<p>
+								Write-ups are on the way. In the meantime, take a look at my{' '}
+								<a href="/resume">resume</a>.
+							</p>
+						</div>
+					) : (
+						<ul>
+							{posts.map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<span class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</span>
+										<span class="title">{post.data.title}</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					)
+				}
 			</section>
 		</main>
 		<Footer />
