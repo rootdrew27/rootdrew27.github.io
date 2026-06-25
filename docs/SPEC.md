@@ -35,6 +35,9 @@
   - `pubDate` (date, required)
   - `updatedDate` (date, optional)
   - `heroImage` (image, optional)
+  - `heroImageAlt` (string, optional) — alt text for the hero image
+  - `heroImageCredit` (string, optional) — caption shown beneath the hero
+    image, e.g. an attribution or AI-generation disclosure
   - The blog index renders a fallback "nothing here yet" state when the
     collection is empty.
 - **Resume** (`resume` collection) is a single YAML file in
@@ -43,7 +46,7 @@
   page renders from this data; editing the resume means editing the YAML, not
   markup. The downloadable one-page PDF is an abridged version maintained
   separately in `public/`.
-- Image assets are committed alongside the site (e.g. `src/assets/`) and
+- Image assets are committed alongside the content that references them and
   optimized at build time, rather than fetched from GitHub at request time.
 
 ## Quality checks

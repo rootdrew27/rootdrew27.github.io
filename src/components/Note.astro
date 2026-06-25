@@ -1,0 +1,31 @@
+---
+interface Props {
+	label?: string;
+}
+
+const { label = 'Note' } = Astro.props;
+---
+
+<aside class="note">
+	<span class="note-label">{label} —</span> <slot />
+</aside>
+
+<style>
+	.note {
+		border-left: 2px solid rgb(var(--gray));
+		padding-left: 1em;
+		margin: 0 0 1.5em;
+		font-size: 0.95em;
+	}
+	.note-label {
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+	/* Keep spacing sane if a note ever holds multiple paragraphs. */
+	.note :global(p) {
+		margin: 0;
+	}
+	.note :global(p + p) {
+		margin-top: 0.75em;
+	}
+</style>

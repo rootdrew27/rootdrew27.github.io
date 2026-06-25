@@ -97,6 +97,26 @@ img {
 	height: auto;
 	border-radius: 4px;
 }
+video {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+	border: 1px solid var(--border);
+}
+figure {
+	margin: 0 0 1.5em 0;
+}
+figure img,
+figure video {
+	margin-bottom: 0.5em;
+}
+figcaption {
+	font-size: 0.85rem;
+	line-height: 1.4;
+	color: rgb(var(--gray));
+	text-align: center;
+}
 code {
 	font-family: var(--font-mono);
 	font-size: 0.9em;

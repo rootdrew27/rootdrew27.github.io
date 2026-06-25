@@ -21,5 +21,8 @@ pnpm-debug.log*
 # OS
 .DS_Store
 
-# WIP sample blog posts - kept locally as reference, not deployed
+# sample blog posts - kept locally as reference
 src/content/blog/*.ignore
+
+# assets not being published
+assets/
