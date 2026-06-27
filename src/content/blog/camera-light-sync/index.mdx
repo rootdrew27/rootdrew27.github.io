@@ -11,38 +11,56 @@ heroImageCredit: 'Image generated with Nano Banana 2.'
 import { Image } from 'astro:assets';
 import Note from '../../../components/Note.astro';
 import dutyCycle from "./images/duty_cycle.jpeg"
+import lightAsAdc from "./images/light_as_adc.png"
 
-Modern cameras are designed to handle the flicker of a typical LED, but a non-standard flicker and a high-intensity makes recording under these LEDs challenging.
+Modern cameras are designed to handle the flicker of a typical LED, but a light with a non-standard flicker frequency and a high intensity makes capturing video difficult.
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+  <figure style={{ flex: '1 1 280px', margin: 0 }}>
+    <video autoPlay loop muted playsInline preload="metadata" style={{ width: '100%' }}>
+      <source src="/blog/camera-light-sync/master-cap.mp4" type="video/mp4" />
+      Your browser doesn’t support embedded video.
+    </video>
+    <figcaption>Before: Unsynchronized</figcaption>
+  </figure>
+  <figure style={{ flex: '1 1 280px', margin: 0 }}>
+    <video autoPlay loop muted playsInline preload="metadata" style={{ width: '100%' }}>
+      <source src="/blog/camera-light-sync/trigger-cap.mp4" type="video/mp4" />
+      Your browser doesn’t support embedded video.
+    </video>
+    <figcaption>After: Synchronized</figcaption>
+  </figure>
+</div>
 
 ## Background
 
-It is well-known that LEDs flicker, and while anti-flicker technology is built into many modern cameras, it is designed to handle the flicker that results from LEDs powered by [mains power](https://en.wikipedia.org/wiki/Mains_electricity). For my use case, the LED light is driven by [pulse width modulation](https://www.sameskydevices.com/blog/pulse-width-modulation-pwm-how-it-works-and-why-its-essential-in-electronics), and importantly, its flicker frequency differs from the standard 50/60 Hz of mains power. 
+It is well-known that LEDs flicker, and while anti-flicker technology is built into many modern cameras, it is designed to handle the flicker that results from LEDs powered by [mains power](https://en.wikipedia.org/wiki/Mains_electricity). For my scenario, the LED light source is driven by [pulse width modulation](https://www.sameskydevices.com/blog/pulse-width-modulation-pwm-how-it-works-and-why-its-essential-in-electronics), and importantly, its flicker frequency differs from the standard 50/60 Hz of mains power. 
 
 ### Capture Scenario
 
 The important characteristics of my capture scenario are:
-1. No Control Over Light Source
-2. High-Intenstiy Light (13k-20k+ lux)
+1. No Control over Light Source
+2. High-Intensity Light (13k-20k+ lux)
 3. Non-Standard Flicker Frequency (not 50/60 Hz)
-4. Color Multiplexing (4 color channels)
+4. Color Mixing (4 color channels)
 
 Let's look at each one...
 
-#### No Control over the Light Source
+#### No Control over Light Source
 
 When controlling the light source is a feasible approach, it makes synchronization of the camera and the light a much simpler task. Unfortunately, controlling the light source and/or adding a controlled light source was out of the question in the setting that I was engineering for.
 
-#### High Intensity Light
+#### High-Intensity Light
 
-The light is bright, 13,000 to 20,000+ lux, and my camera was close enough to oversaturate the sensor under any ordinary exposure. The conventional answer to a scene with this much light intensity is a camera with [high dynamic range]((https://www.bhphotovideo.com/explora/photography/hands-on-review/a-guide-to-neutral-density-filters)) (HDR), but depending on how it's implemented, HDR introduces its own drawbacks, cost among them.
+The light is bright, 13,000 to 20,000+ lux, and my camera was close enough to oversaturate the sensor under any ordinary exposure. The conventional answer when lighting that causes overexposure cannot be avoided is to use a camera with [high dynamic range](https://www.d3embedded.com/high-dynamic-range-imaging/) (HDR), but depending on how it's implemented, HDR introduces its own drawbacks, cost among them.
 
 #### Non-Standard Flicker Frequency
 
 Knowing that my light source was driven by pulse width modulation and that its [switching frequency](https://www.sameskydevices.com/blog/pulse-width-modulation-pwm-how-it-works-and-why-its-essential-in-electronics#:~:text=right%20power%20level.-,What%20is%20Switching%20Frequency%3F,-Switching%20frequency%20is) was non-standard, I determined that syncing the camera's capture to the light would be beneficial, if not essential.
 
-#### Color Multiplexing
+#### Color Mixing
 
-The light I was capturing appears white, but a common technique known as color multiplexing was in use. Four color channels, each with their own duty cycle and offset were used by the light's manufacturer. To the eye, and to any exposure long enough to integrate across a full PWM cycle, the blend into a steady white. 
+The light I was capturing appears white, but a common technique known as [color mixing](https://www.digikey.com/en/articles/led-color-mixing-the-basics) was in use. Four color channels, each with their own duty cycle and offset, were being blended together. To the eye, and to any exposure long enough to integrate across a full PWM cycle, the colors blended into a steady white. 
 
 {/* <figure>
   <Image src={dutyCycle} alt="Examples of Duty Cycles for a Pulse Width Modulated Signal." />
@@ -56,9 +74,18 @@ The light I was capturing appears white, but a common technique known as color m
 
 ## Solution
 
-Neutral-density filters and a short exposure time tamed the brightness, but synchronizing the camera to the light was still necessary. With the light's internals inaccessible, synchronization had to come from its output. A phototransistor aimed at the light, together with a simple circuit, can convert the light's intensity into a voltage, producing a waveform representing the combined color channels.
+Addressing the saturation of the camera's sensor was done via neutral-density filters and a short exposure, but due to the color mixing of the light source and the lack of synchronization, the captured color varied significantly frame-to-frame.
 
-From there, the goal is not merely to catch a bright portion of the waveform but to land every exposure at the *same phase* of the multiplexed cycle, so the same combination of channels is captured frame after frame; drift in phase alters the color drastically, while a consistent phase holds it steady. A microcontroller running custom software samples the recovered signal and drives the camera's trigger pin to do exactly that. The second video below shows the result: stable color and brightness, with no pulsing or partially-lit frames, and as bonuses, no motion blur (due to global shutter and short exposure) and no need for a costly HDR sensor.
+With the light's internals inaccessible, synchronization had to be done with the light source's output. A phototransistor aimed at the light, together with a simple circuit and microcontroller, convert the emitted light into a voltage that is then digitized, producing a waveform representing the combined color channels.
+
+{<figure>
+  <Image src={lightAsAdc} alt={"Digitized voltage produced by the phototransistor circuit"} />
+  <figcaption>Digitized voltage produced by the phototransistor circuit (Figure created with Matplotlib)</figcaption>
+</figure>}
+
+From there, the goal is not merely to catch a bright portion of the waveform but to land every trigger at the *same phase* of the cycle, so the same combination of color is captured frame after frame; drift in phase alters the color drastically, while a consistent phase holds it steady. A microcontroller running custom software samples the recovered signal and drives the camera's trigger pin to do exactly that.
+
+The second video below shows the result: stable color and brightness, with no pulsing or partially-lit frames, and as bonuses, no motion blur (due to global shutter and short exposure) and no need for a costly HDR sensor.
 
 ### Before: Unsynchronized
 
@@ -85,6 +112,12 @@ The following video was captured with the *same* machine vision camera and under
   </video>
   <figcaption>Synchronized (Stream Mode: Trigger)</figcaption>
 </figure>
+
+### Drawbacks
+
+The primary drawback of this approach is the requirement that the phototransistor be aimed at the light, and that the luminance must be sufficiently intense and consistent. This limits the applicability of the described solution. With that being said, additional efforts could be made to achieve a clean signal even if the phototransistor is not in close proximity of, and can not be directly aimed at, the light source. 
+
+Additionally, as the signal is indirectly measured, a fairly complex algorithm was needed to ensure consistent triggers.
 
 ## Conclusion
 
