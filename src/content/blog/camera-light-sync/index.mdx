@@ -11,47 +11,54 @@ heroImageCredit: 'Image generated with Nano Banana 2.'
 import { Image } from 'astro:assets';
 import Note from '../../../components/Note.astro';
 import dutyCycle from "./images/duty_cycle.jpeg"
-// import camPicoSetup from './images/cam_w_pico_home_office_bg_blurred.png';
-// import banding from "./images/banding.webp"
 
-A camera aimed at a scene illuminated by an LED that flickers at a non-standard frequency records visible artifacts. Additional challenges arise when the exposure must stay low and the hardware driving the light is inaccessible. 
-
-In this article, I will present a unique challenge that I encountered when trying to capture video and the solution that I developed.
+Modern cameras are designed to handle the flicker of a typical LED, but a non-standard flicker and a high-intensity makes recording under these LEDs challenging.
 
 ## Background
 
-It is well-known that LEDs flicker, and while anti-flicker technology is built into most modern cameras, it was insufficient for my use case.
-LEDs are often driven by pulse width modulation (PWM): a PWM signal is one that turns on and off at a fixed frequency, and in the case of LEDs, quickly enough to go unseen by the human eye.
+It is well-known that LEDs flicker, and while anti-flicker technology is built into many modern cameras, it is designed to handle the flicker that results from LEDs powered by [mains power](https://en.wikipedia.org/wiki/Mains_electricity). For my use case, the LED light is driven by [pulse width modulation](https://www.sameskydevices.com/blog/pulse-width-modulation-pwm-how-it-works-and-why-its-essential-in-electronics), and importantly, its flicker frequency differs from the standard 50/60 Hz of mains power. 
 
-Record such an LED using a short exposure time and the flicker becomes visible. On a rolling shutter sensor it shows up as banding (light/dark horizontal stripes), since each row is exposed at a different point in the PWM cycle. On a global shutter sensor, where every pixel integrates over the same brief window of time, whole frames may land in the on or off state, producing frame-to-frame pulsing (i.e. frames with varying illumination). This becomes unavoidable when the exposure spans less than a single PWM period: each frame then captures only a slice of the cycle, and what it records depends on the phase, which is why synchronization is needed. In my case a short exposure couldn't be avoided; even with neutral density (ND) filters, the light was too bright.
+### Capture Scenario
 
-<figure>
+The important characteristics of my capture scenario are:
+1. No Control Over Light Source
+2. High-Intenstiy Light (13k-20k+ lux)
+3. Non-Standard Flicker Frequency (not 50/60 Hz)
+4. Color Multiplexing (4 color channels)
+
+Let's look at each one...
+
+#### No Control over the Light Source
+
+When controlling the light source is a feasible approach, it makes synchronization of the camera and the light a much simpler task. Unfortunately, controlling the light source and/or adding a controlled light source was out of the question in the setting that I was engineering for.
+
+#### High Intensity Light
+
+The light is bright, 13,000 to 20,000+ lux, and my camera was close enough to oversaturate the sensor under any ordinary exposure. The conventional answer to a scene with this much light intensity is a camera with [high dynamic range]((https://www.bhphotovideo.com/explora/photography/hands-on-review/a-guide-to-neutral-density-filters)) (HDR), but depending on how it's implemented, HDR introduces its own drawbacks, cost among them.
+
+#### Non-Standard Flicker Frequency
+
+Knowing that my light source was driven by pulse width modulation and that its [switching frequency](https://www.sameskydevices.com/blog/pulse-width-modulation-pwm-how-it-works-and-why-its-essential-in-electronics#:~:text=right%20power%20level.-,What%20is%20Switching%20Frequency%3F,-Switching%20frequency%20is) was non-standard, I determined that syncing the camera's capture to the light would be beneficial, if not essential.
+
+#### Color Multiplexing
+
+The light I was capturing appears white, but a common technique known as color multiplexing was in use. Four color channels, each with their own duty cycle and offset were used by the light's manufacturer. To the eye, and to any exposure long enough to integrate across a full PWM cycle, the blend into a steady white. 
+
+{/* <figure>
   <Image src={dutyCycle} alt="Examples of Duty Cycles for a Pulse Width Modulated Signal." />
   <figcaption>Duty Cycles of a PWM Signal (Source: https://learn.sparkfun.com/tutorials/pulse-width-modulation/all).</figcaption>
-</figure>
+</figure> */}
 
 {/* <figure>
   <Image src={banding} alt="Example of banding from https://happyphotodad.wordpress.com/2015/08/14/fuji-x-t1-electronic-shutter/." />
   <figcaption>Caption for the setup photo.</figcaption>
 </figure> */}
 
-## The Challenge
-
-My capture scenario had multiple challenging characteristics that motivated my custom solution:
-
-1. High-Intensity Light (over-saturation)
-2. Non-standard Driving Frequency (e.g. 76 Hz)
-3. Multiple Light Intensity Settings
-4. Color Multiplexing
-5. Inaccessible LED Driver (no control over the signal)
-
-I won't detail every characteristic, but there is one that matters if you are to understand the videos below: the light's signal is **not a simple square wave**. Measured with a phototransistor, it's a multi-level (staircase) waveform: the combination of several color channels firing at different frequencies and duty cycles.
-
 ## Solution
 
-The brightness was tamed by using neutral density filters and a short exposure time, but the flicker was still an issue; that required synchronizing the camera to the light. As the light's internals were essentially inaccessible, synchronization had to come from the light's output. A phototransistor aimed at the light, along with a simple circuit, turns the light's intensity into a voltage, recovering the combined waveform of all color channels.
+Neutral-density filters and a short exposure time tamed the brightness, but synchronizing the camera to the light was still necessary. With the light's internals inaccessible, synchronization had to come from its output. A phototransistor aimed at the light, together with a simple circuit, can convert the light's intensity into a voltage, producing a waveform representing the combined color channels.
 
-A microcontroller running custom software samples the signal and drives the camera's trigger pin so every exposure start point lands at the same phase of each cycle. The second video below shows the solution in action: stable color and brightness with no pulsing or partially-lit frames. Additional notable wins of this solution are the lack of motion blur due to the global shutter and low exposure time, as well as an affordability win, as a camera with a high dynamic range (HDR) is not needed.
+From there, the goal is not merely to catch a bright portion of the waveform but to land every exposure at the *same phase* of the multiplexed cycle, so the same combination of channels is captured frame after frame; drift in phase alters the color drastically, while a consistent phase holds it steady. A microcontroller running custom software samples the recovered signal and drives the camera's trigger pin to do exactly that. The second video below shows the result: stable color and brightness, with no pulsing or partially-lit frames, and as bonuses, no motion blur (due to global shutter and short exposure) and no need for a costly HDR sensor.
 
 ### Before: Unsynchronized
 
@@ -69,7 +76,7 @@ The following video was captured with a machine vision camera, in the Master str
 
 ### After: Synchronized
 
-The following video was captured with the same machine vision camera and under the same light source, but in the Trigger stream mode with a phototransistor and custom hardware/software driving the camera's capture.
+The following video was captured with the *same* machine vision camera and under the *same* light source, but in the Trigger stream mode with a phototransistor and custom hardware/software driving the camera's capture.
 
 <figure>
   <video controls preload="metadata" playsinline>
@@ -81,5 +88,5 @@ The following video was captured with the same machine vision camera and under t
 
 ## Conclusion
 
-Recovering the light's waveform from the outside and synchronizing the camera's capture turned an inaccessible, non-standard light into something a camera can capture cleanly with no control over the light required. The general nature of my solution makes it applicable to all intensity settings of the light and makes it adaptable to any frequency.
+The solution detailed in this article is generalizable to different switching frequencies and differing waveforms, which is necessary for my application. Furthermore, due to its affordability, it may be applicable to a wider range of applications.
 
