@@ -24,15 +24,16 @@ experience:
     end: Present
     highlights:
       - >-
-        Took an end-to-end vision/audio system from 0 to 1. This system includes
-        sensors, edge devices, and cloud infrastructure. It's deployed in multiple
+        Built and deployed an end-to-end vision/audio system spanning sensors, edge
+        devices running real-time inference, and cloud infrastructure; now live in
         dental operatory rooms across 2 offices.
       - >-
-        Researching and prototyping depth and pose estimation methods for key object
-        tracking in video: evaluating modern models and implementing custom solutions.
+        Research and prototype depth and pose estimation methods for key-object tracking
+        in video, evaluating state-of-the-art models and implementing custom solutions.
       - >-
-        Developed a novel solution for synchronizing a machine vision camera with a
-        high-intensity, flickering light of varying frequency and color.
+        Designed a novel frame-timing synchronization algorithm to align a machine
+        vision camera with a high-intensity flickering light of varying frequency and
+        color.
   - role: Research Lab Assistant
     company: Oakland University
     location: Oakland County, MI
@@ -40,12 +41,15 @@ experience:
     end: May 2025
     highlights:
       - >-
-        Developed a real-time machine learning pipeline for foreign-object detection
-        in video data for an automated security vehicle system (with Dataspeed Inc.).
+        Developed a real-time machine learning pipeline to detect foreign-object
+        addition and removal in video streams for an automated security vehicle system
+        (in collaboration with Dataspeed Inc.).
       - >-
-        Self-learned deep learning, PyTorch, and computer vision algorithms/techniques.
+        Independently developed expertise in deep learning, PyTorch, and computer vision
+        techniques.
       - >-
-        Collected data for model training and collaborated with Masters/PhD students.
+        Collected and curated training data and collaborated with Master's and PhD
+        students.
   - role: Undergraduate Researcher
     company: University of Wisconsin – Eau Claire
     location: Eau Claire, WI
@@ -53,12 +57,12 @@ experience:
     end: Dec 2024
     highlights:
       - >-
-        Conducted cyberbullying detection research by investigating sources of bias in
-        ML datasets, using cross-dataset machine learning evaluation on the university
-        HPC cluster, and mentored younger students.
+        Conducted cyberbullying-detection research investigating sources of bias in ML
+        datasets through cross-dataset evaluation on the university HPC cluster; mentored
+        junior researchers.
       - >-
-        Used UWEC's High Performance Computing clusters to run long running
-        training/evaluation tasks with XGBoost and Decision Trees.
+        Leveraged UWEC's high-performance computing clusters to run long-running
+        training and evaluation workloads with XGBoost and decision trees.
   - role: Software Engineer Intern
     company: Midwest Manufacturing (Menards Inc.)
     location: Eau Claire, WI
@@ -66,14 +70,13 @@ experience:
     end: May 2024
     highlights:
       - >-
-        Developed and deployed a web application simplifying advanced database
+        Developed and deployed a web application that streamlined advanced database
         operations for technical and non-technical teams.
       - >-
-        Refactored 3 manufacturing services integrating PLC systems and messaging
-        brokers, and automated documentation updates via web scraping and syntax parsers.
+        Refactored 3 manufacturing services integrating PLC systems and message brokers.
       - >-
-        Designed and (partially) developed an auto-documentation service to create
-        Confluence documentation pages from code repositories.
+        Designed and prototyped an auto-documentation service that generates Confluence
+        pages from code repositories using web scraping and syntax parsers.
 
 projects:
   - name: Voice-Assistant Task Manager
@@ -81,7 +84,7 @@ projects:
       A full-stack, real-time voice-assistant task manager that lets users create,
       edit, and manage tasks entirely through natural language without needing
       traditional UI controls. The system streams audio to a Python agent that
-      interprets instructions via speech-to-text and a LLM, executes database
+      interprets instructions via speech-to-text and an LLM, executes database
       operations, and synchronizes updates to the frontend in real time.
     tech:
       - Python
@@ -92,17 +95,17 @@ projects:
 leadership:
   - role: President — Students' Association for Computing Machinery (SACM)
     description: >-
-      Designed and led interactive, educational events for the university chapter of
-      SACM, on topics including Git/GitHub, Python, and neural networks. Led meetings
-      and delegated assignments to board members.
+      Designed and led interactive educational events for the university's SACM chapter
+      on topics including Git/GitHub, Python, and neural networks; chaired meetings and
+      delegated responsibilities to board members.
   - role: Instructor — Python & Machine Learning Workshop
     description: >-
-      Designed and ran a workshop for over 20 UWEC students covering Python, statistics,
-      data analytics, and machine learning.
+      Designed and delivered a workshop for 20+ UWEC students covering Python,
+      statistics, data analytics, and machine learning.
 
 skills:
   - category: Langs & Libraries
-    items: [Python, TypeScript, PyTorch, OpenCV, Open3D, AWS CDK]
+    items: [Python, C++, TypeScript, PyTorch, TensorFlow, OpenCV, Open3D, AWS CDK]
   - category: Hardware
     items:
       - Raspberry Pi Pico 2W
