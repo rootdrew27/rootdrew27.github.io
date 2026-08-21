@@ -10,7 +10,10 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "resume": "./scripts/build-resume.sh",
+    "resume:watch": "./scripts/build-resume.sh --watch",
+    "resume:publish": "./scripts/build-resume.sh --publish"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",

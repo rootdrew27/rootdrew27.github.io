@@ -26,3 +26,7 @@ src/content/blog/*.ignore
 
 # assets not being published
 assets/
+
+# career notes kept locally, not published
+docs/experience/
+docs/job-postings/

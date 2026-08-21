@@ -60,3 +60,32 @@
 - A GitHub Actions workflow (`.github/workflows/deploy.yml`) builds the site
   with `withastro/action` and publishes it via `actions/deploy-pages` on every
   push to `master`. Pages "Source" must be set to **GitHub Actions**.
+
+## Resume sources
+
+- The **website resume** renders from `src/content/resume/andrew-root.yaml`. It
+  is the superset: changes here should be *additive*, so the page accumulates
+  experience rather than being retargeted at whichever role is current.
+- The **one-page PDF** in `public/` is compiled from LaTeX under `assets/`.
+  `assets/Resume___Andrew_Root/` is the original base; each
+  `assets/Resume___Andrew_Root___<Company>/` is a variant tailored to a single
+  posting. `assets/Resume___Andrew_Root___FDE/` is the general-purpose Forward
+  Deployed Engineer resume, and it is the variant the site serves: `npm run
+  resume:publish` builds every variant and copies that one to
+  `public/andrew-root-resume.pdf`. The published variant is set by
+  `PUBLISH_VARIANT` in `scripts/build-resume.sh`.
+- `docs/job-postings/` records the postings themselves, one file per posting,
+  each carrying the posting text, a `Variant` pointer to the LaTeX directory it
+  produced, and the positioning rationale the variant was written against. See
+  `docs/job-postings/README.md`.
+- `docs/experience/` is the source of truth behind both. It records Andrew's
+  experience in more detail than any resume carries, with confidence markers, so
+  variants can be tailored from recorded fact rather than memory. See
+  `docs/experience/README.md`.
+- Variants compile locally with [Tectonic](https://tectonic-typesetting.github.io/):
+  `npm run resume` builds all of them, `npm run resume -- fde` builds one,
+  `npm run resume:watch` rebuilds on save. Each variant carries its own
+  `resume.cls`, so spacing changes are scoped to that variant alone.
+- Every variant must fit on **one page**. `npm run resume` prints the page count
+  per variant; the page budget and cut order are documented in the header comment
+  of each variant's `resume.tex`.
