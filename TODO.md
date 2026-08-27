@@ -1,3 +1,5 @@
-- Read over resume and improve professionalism of web content and pdf
-- Add hyperlinks to Business names (e.g. Daentra), colleges, etc.
-- Write blog post on syncing camera to light
+# TODO
+
+- Update website style
+- Write blog post on coding agents
+- Write a blog post on deployments for Daentra

@@ -29,19 +29,15 @@ experience:
         devices running real-time inference, and AWS cloud infrastructure, then deployed
         it into dental operatory rooms across 2 customer offices.
       - >-
-        Run on-site installation personally and train clinical staff to use the
-        system during live treatment; currently operate 10 edge devices across 5
-        operatories, each room pairing an Orange Pi 5B with a Raspberry Pi Pico 2W.
+        Led the installs at the office I support today and collaborated with the
+        clinical staff who use the system during live treatment; currently operate
+        10 edge devices across 5 operatories, each room pairing an Orange Pi 5B with
+        a Raspberry Pi Pico 2W.
       - >-
         Cut failure detection from a customer phone call to an automatic alert by
         building the deployment's observability layer on AWS CloudWatch and SNS:
-        structured, queryable logs, a fleet-health dashboard, and alerting on device and
+        structured, queryable logs, and alerting on device and
         pipeline faults.
-      - >-
-        Took the Pico 2W off the customer's congested network after my alerting caught
-        repeated device dropouts and I traced them to 2.4 GHz contention in the office's
-        shared band, reconfiguring each Orange Pi as a dedicated access point for its
-        paired Pico and taking the office router out of that link.
       - >-
         Turned installation from undocumented practice into a repeatable checklist the team
         follows, authoring both documents Daentra installs from: a deployment guide
@@ -57,8 +53,9 @@ experience:
         camera to a high-intensity dental light flickering at varying frequency and
         color.
       - >-
-        Research and prototype depth and pose estimation methods for key-object tracking
-        in video, benchmarking state-of-the-art models against custom implementations.
+        Researched and prototyped depth and pose estimation methods for key-object
+        tracking in video, benchmarking state-of-the-art models against custom
+        implementations.
   - role: Research Lab Assistant
     company: Oakland University
     location: Oakland County, MI
@@ -105,6 +102,23 @@ experience:
         code repositories using web scraping and syntax parsers.
 
 projects:
+  - name: Tether
+    href: https://github.com/rootdrew27/tether
+    description: >-
+      An agent-first relationship layer over Git, published to PyPI as
+      tether-it. A tether links two artifacts, such as a function and the
+      documentation describing it, fingerprinting both ends with git blob OIDs
+      so that drift is flagged at the symbol or section level rather than across
+      the whole file. Paths that break are run through git's rename detector to
+      surface a rename candidate. Ships a Claude Code integration: session hooks
+      that report drift, permission rules, and an onboarding skill that seeds
+      the initial graph.
+    tech:
+      - Python
+      - Git
+      - PyPI
+      - GitHub Actions
+      - Claude Code
   - name: Voice-Assistant Task Manager
     href: https://github.com/rootdrew27/task-manager-v2
     description: >-
@@ -149,7 +163,7 @@ skills:
   - category: Other
     items:
       - AWS (e.g. SageMaker)
-      - Observability (CloudWatch, SNS, structured logging, dashboards, alerting)
+      - Observability (CloudWatch, SNS, structured logging, alerting)
       - Networking (Wi-Fi troubleshooting, access-point configuration)
       - Git/GitHub
       - Linux

@@ -17,10 +17,17 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ASSETS="$ROOT/assets"
 
 # The variant the website serves, and where it lands. Keep PUBLISH_DEST in sync
-# with pdfPath in src/content/resume/andrew-root.yaml. The published variant is
-# the FDE one, not the base: it is the general-purpose resume that is actually
-# current, and the website's YAML is kept consistent with it.
-PUBLISH_VARIANT="Resume___Andrew_Root___FDE"
+# with pdfPath in src/content/resume/andrew-root.yaml.
+#
+# The published variant is the ZIPLINE one as of 2026-08-26 (Andrew's call), and
+# was the FDE one before that. Despite the name it is not narrowly Zipline-
+# specific: its summary names no company, its skills rows are general, and its
+# Daentra bullets are the most current and most technical set of any variant
+# (the insurance-claims inference pipeline and the 1200p/55fps edge
+# optimization appear on no other page). It also has two claims removed that
+# Andrew judged overstated or not worth the space, so it is the most honest
+# version as well as the strongest.
+PUBLISH_VARIANT="Resume___Andrew_Root___Zipline"
 PUBLISH_DEST="$ROOT/public/andrew-root-resume.pdf"
 
 TECTONIC="${TECTONIC:-$(command -v tectonic || echo "$HOME/.local/bin/tectonic")}"
