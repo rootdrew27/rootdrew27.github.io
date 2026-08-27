@@ -27,7 +27,13 @@ experience:
       - >-
         Built and shipped an end-to-end vision/audio system spanning sensors, edge
         devices running real-time inference, and AWS cloud infrastructure, then deployed
-        it into dental operatory rooms across 2 customer offices.
+        it into dental operatory rooms across 2 customer offices; currently handling
+        10-20 appointments a day.
+      - >-
+        Built an agentic inference pipeline on AWS that turns operatory audio and video
+        into procedure predictions for insurance claims, combining speech-to-text with
+        LLM calls constrained to structured output so that every step stays
+        machine-parseable.
       - >-
         Led the installs at the office I support today and collaborated with the
         clinical staff who use the system during live treatment; currently operate
@@ -53,12 +59,17 @@ experience:
         camera to a high-intensity dental light flickering at varying frequency and
         color.
       - >-
+        Optimized the edge devices, working closely with hardware, to stream 1200p video
+        at 55 FPS on a single CPU core, offloading RetinaFace to the NPU and video
+        encode/decode to the VPU; wrote a custom UVC kernel module to raise buffer
+        capacity.
+      - >-
         Researched and prototyped depth and pose estimation methods for key-object
         tracking in video, benchmarking state-of-the-art models against custom
         implementations.
   - role: Research Lab Assistant
     company: Oakland University
-    location: Oakland County, MI
+    location: Rochester Hills, MI
     start: May 2024
     end: May 2025
     highlights:
