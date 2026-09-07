@@ -57,7 +57,7 @@ experience:
       - >-
         Designed a frame-timing synchronization algorithm that aligns a machine vision
         camera to a high-intensity dental light flickering at varying frequency and
-        color.
+        color, removing the need for a pricier camera and saving $300-$500 per unit.
       - >-
         Optimized the edge devices, working closely with hardware, to stream 1200p video
         at 55 FPS on a single CPU core, offloading RetinaFace to the NPU and video
