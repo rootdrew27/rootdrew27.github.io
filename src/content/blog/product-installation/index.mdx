@@ -1,0 +1,53 @@
+---
+title: 'Deploying to a Dental Operatory: Product Installation'
+description: 'Taking a camera, microcontroller, and single-board computer from the bench to five production dental chairs: mounting, power, provisioning, and commissioning.'
+pubDate: '2026-09-22'
+# updatedDate: ''
+heroImage: './images/hero-light-head.jpg'
+heroImageAlt: 'Edge device mounted on the arm of a dental operatory light, with the camera and light sensor clamped to the light head.'
+# heroImageCredit: ''
+---
+
+import { Image } from 'astro:assets';
+import Note from '../../../components/Note.astro';
+
+import installMount from './images/install-mount.jpg';
+
+Installing a product into a real customer site (e.g. a dental office) is a different experience from building it. Challenges arise at inopportune moments, the existing infrastructure is less than ideal, and the stakes are high. In this post, I will discuss the details of the installation process for five production dental chairs, covering mounting, power, and device management.
+
+## The Hardware
+
+- Edge Device (Orange Pi 5B)
+- Machine Vision Camera
+- Raspberry Pi Pico 2 W
+- USB Microphone
+- 24 VAC -> 5 VDC converter
+- 3D-printed mount/case
+- etc.
+
+<figure>
+  <Image src={installMount} alt="Close-up of the camera housing and phototransistor mount clamped to the handle of the dental light head." />
+  <figcaption>Fully installed unit</figcaption>
+</figure>
+
+### Power
+
+Powering the devices was particularly challenging given that the dental light was hanging and on a track, and so the decision was made to tap into the light's own power supply (a 24 VAC transformer). The power chain was designed as follows: the Orange Pi 5B receives power from the 24 VAC -> 5 VDC converter, which then powers the camera, and finally the Raspberry Pi Pico via a GPIO header on the camera. Referencing the dental light's documentation and running experiments with a scope were essential steps to ensure that our device did not interfere with the light's normal operation.
+
+### Mounting
+
+Attaching the devices to the dental light was initially challenging given that we wanted a discreet profile and maximum stability. The final solution involved 3M double-sided Nano Tape, which was rated well above the weight of the devices.
+
+Designing the mounts was not particularly challenging, outside of the fact that the surfaces of the light were not flat or symmetrical. I took precise measurements with a contour gauge and translated the measurements into a CAD model, which was 3D printed. 
+
+## Device Management
+
+Deploying multiple devices in the real world entails more than just a physical installation. Monitoring and troubleshooting issues remotely required a robust strategy for managing the devices. In addition to utilizing AWS's CloudWatch for logging and alerting, I implemented a system for managing the device packages and configurations, which allowed for remote updates and rollbacks. 
+
+## What I'd Do Differently
+
+The installation process was a learning experience, and there are several things I would do differently next time. Mainly, I would take greater care to obtain precise measurements of the dental light and the related components, both physical and electrical, right from the start. Additionally, powering the devices from the dental light's own power supply was a risky decision and created unnecessary headaches, so I would consider alternative power sources in the future. The lesson there seems to be that separating the product from the existing infrastructure reduces unexpected complications and reliance on said infrastructure. 
+
+## Conclusion
+
+Overall, the installation was successful, but significant challenges could have been avoided if more time had been spent examining the existing infrastructure. Furthermore, keeping bench testing as close to the real-world environment as possible would have helped to avoid some of the issues that arose during installation. 
