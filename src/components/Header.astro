@@ -1,15 +1,10 @@
 ---
 import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/resume">Resume</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-		</div>
 		<div class="social-links">
 			<a href="https://github.com/rootdrew27" target="_blank">
 				<span class="sr-only">Andrew on GitHub</span>
@@ -55,10 +50,6 @@ import HeaderLink from './HeaderLink.astro';
 	h2 a {
 		color: rgb(var(--black));
 		text-decoration: none;
-	}
-	.internal-links {
-		display: flex;
-		gap: 0.25em;
 	}
 	.social-links,
 	.social-links a {

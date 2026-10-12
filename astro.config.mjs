@@ -8,6 +8,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
 	site: 'https://rootdrew27.github.io',
 	integrations: [mdx(), sitemap()],
+	// The blog index moved to the site root; keep old links working.
+	redirects: { '/blog': '/' },
 	fonts: [
 		{
 			provider: fontProviders.google(),
